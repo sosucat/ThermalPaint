@@ -25,8 +25,8 @@ def color2angle(red, green, blue):
 
 
 # Buffer between the initial sensor values and the paint detection values.
-right_buffer = 4
-left_buffer = 1
+right_buffer = 6
+left_buffer = 4
 
 # Open COM ports and apply torque to the servo motors on ThermoBlinds.
 ser = serial.Serial('COM16', 115200)
