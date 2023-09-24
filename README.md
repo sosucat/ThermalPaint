@@ -47,17 +47,17 @@ For more details about ThermoBlinds, please refer to the following papers:
    with open(filename, 'w', newline='') as csvfile:
    ```
    with
-      ```python
-      with open(filename, 'w') as csvfile:
-      ```
+   ```python
+   with open(filename, 'w') as csvfile:
+   ```
    in calibration.py.
 11. Run a calibration.
-      ```python
-      python calibration.py
-      ```
+   ```python
+   python calibration.py
+   ```
 12. Check if "parameters.csv" is successfully generated in the same directory.
 13. Run the main program.
-      ```python
-      python thermalPaint.py
-      ```
-15. Paint!
+   ```python
+   python thermalPaint.py
+   ```
+14. Paint!
