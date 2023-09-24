@@ -51,12 +51,12 @@ For more details about ThermoBlinds, please refer to the following papers:
       with open(filename, 'w') as csvfile:
       ```
    in calibration.py.
-11. Run a calibration
+11. Run a calibration.
       ```python
       python calibration.py
       ```
 12. Check if "parameters.csv" is successfully generated in the same directory.
-13. Run the main program
+13. Run the main program.
       ```python
       python thermalPaint.py
       ```
