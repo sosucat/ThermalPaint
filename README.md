@@ -57,8 +57,10 @@ For more details about ThermoBlinds, please refer to the following papers:
    python calibration.py
    ```
 12. Check if "parameters.csv" is successfully generated in the same directory.
-13. Run the main program.
+13. Servo motors
+   * To control the RS204MD servo motors from your PC, you need to install the software containing the driver (the website is in Japanese, and google translate did not work, so please download [this html file](https://drive.google.com/file/d/1qztwM8tqKWbrD8Aod6qqK9VrmVXrDmzK/view?usp=drive_link), open it with your browser, and follow the instructions.)
+14. Run the main program.
    ```python
    python thermalPaint.py
    ```
-14. Paint!
+15. Paint!
