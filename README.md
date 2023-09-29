@@ -7,8 +7,9 @@ For more details about ThermoBlinds, please refer to the following papers:
 - Sosuke Ichihashi, Arata Horie, Masaharu Hirose, Zendai Kashino, Shigeo Yoshida, Sohei Wakisaka, and Masahiko Inami. 2022. ThermoBlinds: Non-Contact, Highly Responsive Thermal Feedback for Thermal Interaction. In ACM SIGGRAPH 2022 Emerging Technologies (SIGGRAPH '22). Association for Computing Machinery, New York, NY, USA, Article 10, 1–2. https://doi.org/10.1145/3532721.3535569
 
 ## How to use
-1. Install python (all the programs are tested on 3.8.10): [download page](https://www.python.org/downloads/release/python-3810/).
-2. Install the following libraries after updating the pip.
+1. Get a Windows PC.
+2. Install python (all the programs are tested on 3.8.10): [download page](https://www.python.org/downloads/release/python-3810/).
+3. Install the following libraries after updating the pip.
    pip install --upgrade pip
   1. [serial](https://pyserial.readthedocs.io/en/latest/pyserial.html): Handles serial communications between the microcontrollers on ThermoBlinds and ThermalPaint brush and the host PC.
       ```
