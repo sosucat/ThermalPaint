@@ -24,13 +24,13 @@ def color2angle(red, green, blue):
         hue = (green - blue) / (max - min)
     elif max == green:
         hue = 2.0 + (blue - red) / (max - min)
-
     else:
         hue = 4.0 + (red - green) / (max - min)
+    
     hue = hue * 60
     if hue < -30:
         hue = hue + 360
-        
+    
     ang = math.degrees(math.acos(1 - (330 - hue)/360))
     
     if ang > 90:
