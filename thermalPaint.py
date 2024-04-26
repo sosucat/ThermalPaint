@@ -12,15 +12,23 @@ import serial
 import cv2
 import dicot
 import csv
+import math
 
 # Obtain heat intensity (i.e., angle of ThermoBlinds) from the RGB color values.
 def color2angle(red, green, blue):
-    ang = 10 + red/255*80*2.0 - green/255*80 - blue/255*80*1.5
+    xi = math.pi/2 - math.atan((2*red - green - blue)/(math.sqrt(3)*(green - blue)))
+    if green >= blue:
+        hue = xi
+    else:
+        hue = math.pi + xi
+        
+    ang = math.acos(1 - (330 - hue)/360)
+    
     if ang > 90:
         ang = 90
     if ang < 10:
         ang = 10
-    print(blue)
+        
     return ang
 
 
