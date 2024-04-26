@@ -16,13 +16,22 @@ import math
 
 # Obtain heat intensity (i.e., angle of ThermoBlinds) from the RGB color values.
 def color2angle(red, green, blue):
-    xi = math.pi/2 - math.atan((2*red - green - blue)/(math.sqrt(3)*(green - blue)))
-    if green >= blue:
-        hue = xi
+    min = min(red, green, blue)
+    max = max(red, green, blue)
+    if min == max:
+        hue = 0.0
+    if max == red:
+        hue = (green - blue) / (max - min)
+    elif max == green:
+        hue = 2.0 + (blue - red) / (max - min)
+
     else:
-        hue = math.pi + xi
+        hue = 4.0 + (red - green) / (max - min)
+    hue = hue * 60
+    if hue < -30:
+        hue = hue + 360
         
-    ang = math.acos(1 - (330 - hue)/360)
+    ang = math.degrees(math.acos(1 - (330 - hue)/360))
     
     if ang > 90:
         ang = 90
