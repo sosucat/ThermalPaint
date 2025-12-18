@@ -2,10 +2,10 @@
 # This script detect colors the ThermalPaint brush is painting and control the angle of ThermoBlinds accordingly.
 # Usage: python thermalPaint.py
 __author__ = "Sosuke Ichihashi"
-__copyright__ = "Copyright 2023, The ThermalPaint Project"
+__copyright__ = "Copyright 2025, Thermal Painting"
 __credits__ = ["Sosuke Ichihashi"]
 __maintainer__ = "Sosuke Ichihashi"
-__email__ = "sichihashi3@gatech.edu"
+__email__ = "pengu1n.i843@gmail.com"
 
 
 import serial
@@ -16,28 +16,43 @@ import math
 
 # Obtain heat intensity (i.e., angle of ThermoBlinds) from the RGB color values.
 def color2angle(red, green, blue):
-    min_ = min(red, green, blue)
-    max_ = max(red, green, blue)
-    if min_ == max_:
-        hue = 0.0
-    if max_ == red:
-        hue = (green - blue) / (max_ - min_)
-    elif max == green:
-        hue = 2.0 + (blue - red) / (max_ - min_)
+    # Normalize RGB to [0,1] if needed
+    r, g, b = red, green, blue
+
+    min_ = min(r, g, b)
+    max_ = max(r, g, b)
+    delta = max_ - min_
+
+    # Compute hue H in degrees
+    if delta == 0:
+        H = 0.0
+    elif max_ == r:
+        H = 60.0 * ((g - b) / delta)
+    elif max_ == g:
+        H = 60.0 * (2.0 + (b - r) / delta)
     else:
-        hue = 4.0 + (red - green) / (max_ - min_)
-    
-    hue = hue * 60
-    if hue < -30:
-        hue = hue + 360
-    
-    ang = math.degrees(math.acos(1 - (330 - hue)/360))
-    
-    if ang > 90:
-        ang = 90
-    if ang < 10:
-        ang = 10
-        
+        H = 60.0 * (4.0 + (r - g) / delta)
+
+    # Wrap hue into [-30°, 330°]
+    if H < -30.0:
+        H += 360.0
+
+    # Map hue to fin angle using Eq. (7)
+    cos_arg = 1.0 - (330.0 - H) / 360.0
+
+    # Numerical safety for acos
+    cos_arg = max(-1.0, min(1.0, cos_arg))
+
+    ang = math.degrees(math.acos(cos_arg))
+
+    # Enforce angle limits
+    if 0.0 < ang < 10.0:
+        ang = 10.0
+    elif ang < 0.0:
+        ang = 10.0
+    elif ang > 90.0:
+        ang = 90.0
+
     return ang
 
 
@@ -133,3 +148,4 @@ print("bye")
 cnx.close()
 cap.release()
 cv2.destroyAllWindows()
+
