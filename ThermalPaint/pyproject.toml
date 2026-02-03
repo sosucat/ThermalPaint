@@ -1,6 +1,6 @@
 [project]
 authors = [{name = "sosucat", email = "pengu1n.i843@gmail.com"}]
-dependencies = []
+dependencies = ["dicot>=0.1.0,<0.2"]
 name = "ThermalPaint"
 requires-python = ">= 3.11"
 version = "0.1.0"
@@ -17,3 +17,8 @@ platforms = ["win-64"]
 thermalpaint = { path = ".", editable = true }
 
 [tool.pixi.tasks]
+
+[tool.pixi.dependencies]
+python = ">=3.14.2,<3.15"
+py-opencv = ">=4.13.0,<5"
+keyboard = ">=0.13.5,<0.14"
