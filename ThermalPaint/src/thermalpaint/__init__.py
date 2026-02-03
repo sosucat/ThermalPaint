@@ -1,151 +1,97 @@
 #!/usr/bin/env python
-# This script detect colors the ThermalPaint brush is painting and control the angle of ThermoBlinds accordingly.
-# Usage: python thermalPaint.py
-__author__ = "Sosuke Ichihashi"
-__copyright__ = "Copyright 2025, Thermal Painting"
-__credits__ = ["Sosuke Ichihashi"]
-__maintainer__ = "Sosuke Ichihashi"
-__email__ = "pengu1n.i843@gmail.com"
+"""
+ThermalPaint Runtime
+Detects brush strokes, samples color, and controls ThermoBlinds.
+"""
 
-
-import serial
 import cv2
-import dicot
-import csv
-import math
+import sys
+from config import CalibrationParameters, PARAMETERS_FILE, COM_PORT_BRUSH, COM_PORT_MOTOR, BAUD_RATE, BUFFER_RIGHT, BUFFER_LEFT
+from hardware import BrushSensor, BlindMotor
+from utils import rgb_to_blind_angle
 
-# Obtain heat intensity (i.e., angle of ThermoBlinds) from the RGB color values.
-def color2angle(red, green, blue):
-    # Normalize RGB to [0,1] if needed
-    r, g, b = red, green, blue
+def main():
+    # 1. Setup Hardware & Config
+    params = CalibrationParameters.load_from_csv(PARAMETERS_FILE)
+    sensor = BrushSensor(COM_PORT_BRUSH, BAUD_RATE)
+    blinds = BlindMotor(COM_PORT_MOTOR)
+    
+    cap = cv2.VideoCapture(0)
+    if not cap.isOpened():
+        print("Error: Camera not found.")
+        return
 
-    min_ = min(r, g, b)
-    max_ = max(r, g, b)
-    delta = max_ - min_
+    width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+    height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
-    # Compute hue H in degrees
-    if delta == 0:
-        H = 0.0
-    elif max_ == r:
-        H = 60.0 * ((g - b) / delta)
-    elif max_ == g:
-        H = 60.0 * (2.0 + (b - r) / delta)
-    else:
-        H = 60.0 * (4.0 + (r - g) / delta)
+    print("ThermalPaint Runtime Started. Press 'q' to exit.")
 
-    # Wrap hue into [-30°, 330°]
-    if H < -30.0:
-        H += 360.0
-
-    # Map hue to fin angle using Eq. (7)
-    cos_arg = 1.0 - (330.0 - H) / 360.0
-
-    # Numerical safety for acos
-    cos_arg = max(-1.0, min(1.0, cos_arg))
-
-    ang = math.degrees(math.acos(cos_arg))
-
-    # Enforce angle limits
-    if 0.0 < ang < 10.0:
-        ang = 10.0
-    elif ang < 0.0:
-        ang = 10.0
-    elif ang > 90.0:
-        ang = 90.0
-
-    return ang
-
-
-# Buffer between the initial sensor values and the paint detection values.
-right_buffer = 6
-left_buffer = 4
-
-# Open COM ports and apply torque to the servo motors on ThermoBlinds.
-ser = serial.Serial('COM16', 115200)
-cnx = dicot.open('COM3')
-motor = cnx.motor(1)
-motor.torque_enabled = True
-
-# Read the parameter values.
-filename = "parameters.csv"
-with open(filename, mode ='r')as file:
-  csvFile = csv.reader(file)
-  for line in csvFile:
-      parameter_values = line# I just want the last line.
-  right_init_val = int(parameter_values[0])
-  left_init_val = int(parameter_values[1])
-  right_init_x = int(parameter_values[2])
-  left_init_x = int(parameter_values[3])
-  right_init_y =int(parameter_values[4])
-  left_init_y = int(parameter_values[5])
-  right_x_coeff = float(parameter_values[6])
-  right_y_coeff =float(parameter_values[7])
-  left_x_coeff = float(parameter_values[8])
-  left_y_coeff = float(parameter_values[9])
-
-# Open a video stream (change the id to the one for the webcam on the brush.)
-cap = cv2.VideoCapture(0)
-cap_width = cap.get(3)
-cap_height = cap.get(4)
-
-# Main loop
-while True:
     try:
-        # Clear the input buffer before attempting to read the latest values from the Arduino
-        while ser.in_waiting > 10:
-            ser.readline()
+        while True:
+            # 2. Read Inputs
+            sensor_vals = sensor.read()
+            ret, frame = cap.read()
+            
+            if not ret or not sensor_vals:
+                continue
 
-        # Read a frame from the video stream
-        ret, frame = cap.read()
+            r_val, l_val = sensor_vals
+            
+            # 3. Determine State & Position
+            is_painting = False
+            x, y = 0, 0
+            
+            # Check Right Swipe
+            if r_val > params.right_init_val + BUFFER_RIGHT:
+                # print("State: Right")
+                x, y = params.project_coordinates(r_val, True, width, height)
+                is_painting = True
+                
+            # Check Left Swipe
+            elif l_val > params.left_init_val + BUFFER_LEFT:
+                # print("State: Left")
+                x, y = params.project_coordinates(l_val, False, width, height)
+                is_painting = True
+            
+            # 4. Process Logic
+            target_angle = 10.0 # Default closed angle
+            debug_color = (0, 0, 0)
 
-        # Read a line from the serial input
-        line = ser.readline().decode('utf-8').rstrip()
-        # Convert it to an array of values
-        if len(line) > 0:
-            values = [int(val) for val in line.split(",")]
-            # print(values)
+            if is_painting:
+                # Sample Color
+                b, g, r = frame[y, x]
+                debug_color = (int(b), int(g), int(r))
+                
+                # Convert to Angle
+                target_angle = rgb_to_blind_angle(r, g, b)
 
-        # Detect right and left swipes
-        if values[0] > right_init_val + right_buffer:
-            print("right")
-            # Get the RGB value of the specified pixel in the frame
-            x = right_init_x + (values[0] - right_init_val) * right_x_coeff
-            y = right_init_y + (values[0] - right_init_val) * right_y_coeff
-            x = int(max(min(x, cap_width-1), 0))
-            y = int(max(min(y, cap_height-1), 0))
-            blue, green, red = frame[y, x]
-            motor.angle = color2angle(red, green, blue)
-        elif values[1] > left_init_val + left_buffer:
-            print("left")
-            # Get the RGB value of the specified pixel in the frame
-            x = left_init_x - (values[1] - left_init_val) * left_x_coeff
-            y = left_init_y - (values[1] - left_init_val) * left_y_coeff
-            x = int(max(min(x, cap_width-1), 0))
-            y = int(max(min(y, cap_height-1), 0))
-            blue, green, red = frame[y, x]
-            motor.angle = color2angle(red, green, blue)
-        else:
-            print("none")
-            x = 0
-            y = 0
-            blue, green, red = 0, 0, 0
-            motor.angle = 10
+            # 5. Actuate Output
+            blinds.set_angle(target_angle)
 
-        # Show the frame with a circle around the specified pixel
-        cv2.circle(frame, (x, y), 24, (0, 255, 0), -1)
-        cv2.circle(frame, (x, y), 20, (int(blue), int(green), int(red)), -1)
-        cv2.imshow("Video", frame)
+            # 6. Visualization
+            if is_painting:
+                # Draw target circle
+                cv2.circle(frame, (x, y), 24, (0, 255, 0), -1)
+                cv2.circle(frame, (x, y), 20, debug_color, -1)
+                
+                # Draw text info
+                info = f"Angle: {target_angle:.1f}deg"
+                cv2.putText(frame, info, (x + 30, y), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
 
-        # Wait for a key press and exit if 'q' is pressed
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
+            cv2.imshow("ThermalPaint Runtime", frame)
+
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
 
     except KeyboardInterrupt:
-        break
+        print("\nStopping...")
+    finally:
+        # Cleanup
+        sensor.close()
+        blinds.close()
+        cap.release()
+        cv2.destroyAllWindows()
+        print("Goodbye.")
 
-print("bye")
-# Release the video stream and close all windows
-cnx.close()
-cap.release()
-cv2.destroyAllWindows()
-
+if __name__ == "__main__":
+    main()
