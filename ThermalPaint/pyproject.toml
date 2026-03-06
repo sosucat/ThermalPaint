@@ -1,6 +1,6 @@
 [project]
 authors = [{name = "sosucat", email = "pengu1n.i843@gmail.com"}]
-dependencies = ["dicot>=0.1.0,<0.2"]
+dependencies = ["dicot>=0.1.0,<0.2", "bleak"]
 name = "ThermalPaint"
 requires-python = ">= 3.11"
 version = "0.1.0"
@@ -17,6 +17,8 @@ platforms = ["win-64"]
 thermalpaint = { path = ".", editable = true }
 
 [tool.pixi.tasks]
+run = "python -m thermalpaint"
+calibrate = "python -m thermalpaint.calibration"
 
 [tool.pixi.dependencies]
 python = ">=3.14.2,<3.15"

@@ -130,7 +130,18 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/x264-1!164.3095-h8ffe710_2.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/win-64/x265-3.5-h2d74725_3.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/win-64/zstd-1.5.7-h534d264_6.conda
+      - pypi: https://files.pythonhosted.org/packages/99/fe/22aec895f040c1e457d6e6fcc79286fbb17d54602600ab2a58837bec7be1/bleak-2.1.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/33/24/71fe6e0159a94939fe6bc9f36e93352c957e2df6e5ba45cc82ed12a3be0d/dicot-0.1.0-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/18/67/36e9267722cc04a6b9f15c7f3441c2363321a3ea07da7ae0c0707beb2a9c/typing_extensions-4.15.0-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/87/85/e5c2a10d287edd9d3ee8dc24bf7d7f335636b92bf47119768b7dd2fd1669/winrt_runtime-3.2.1-cp314-cp314-win_amd64.whl
+      - pypi: https://files.pythonhosted.org/packages/61/fa/7460655628d0f340a93524f5236bb9f8514eb0e1d334b38cba8a89f6c1a6/winrt_windows_devices_bluetooth-3.2.1-cp314-cp314-win_amd64.whl
+      - pypi: https://files.pythonhosted.org/packages/07/c7/43601ab82fe42bcff430b8466d84d92b31be06cc45c7fd64e9aac40f7851/winrt_windows_devices_bluetooth_advertisement-3.2.1-cp314-cp314-win_amd64.whl
+      - pypi: https://files.pythonhosted.org/packages/bb/fa/f465d5d44dda166bf7ec64b7a950f57eca61f165bfe18345e9a5ea542def/winrt_windows_devices_bluetooth_genericattributeprofile-3.2.1-cp314-cp314-win_amd64.whl
+      - pypi: https://files.pythonhosted.org/packages/cb/f6/68d91068048410f49794c0b19c45759c63ca559607068cfe5affba2f211b/winrt_windows_devices_enumeration-3.2.1-cp314-cp314-win_amd64.whl
+      - pypi: https://files.pythonhosted.org/packages/a7/7c/c6aea91908ee7279ed51d12157bc8aeecb8850af2441073c3c91b261ad31/winrt_windows_devices_radios-3.2.1-cp314-cp314-win_amd64.whl
+      - pypi: https://files.pythonhosted.org/packages/a1/56/4d2b545bea0f34f68df6d4d4ca22950ff8a935497811dccdc0ca58737a05/winrt_windows_foundation-3.2.1-cp314-cp314-win_amd64.whl
+      - pypi: https://files.pythonhosted.org/packages/20/59/5f2c940ff606297129e93ebd6030c813e6a43a786de7fc33ccb268e0b06b/winrt_windows_foundation_collections-3.2.1-cp314-cp314-win_amd64.whl
+      - pypi: https://files.pythonhosted.org/packages/f4/3d/aae50b1d0e37b5a61055759aedd42c6c99d7c17ab8c3e568ab33c0288938/winrt_windows_storage_streams-3.2.1-cp314-cp314-win_amd64.whl
       - pypi: ./
 packages:
 - conda: https://conda.anaconda.org/conda-forge/win-64/_libavif_api-1.3.0-h57928b3_3.conda
@@ -151,6 +162,28 @@ packages:
   purls: []
   size: 1958151
   timestamp: 1718551737234
+- pypi: https://files.pythonhosted.org/packages/99/fe/22aec895f040c1e457d6e6fcc79286fbb17d54602600ab2a58837bec7be1/bleak-2.1.1-py3-none-any.whl
+  name: bleak
+  version: 2.1.1
+  sha256: 61ac1925073b580c896a92a8c404088c5e5ec9dc3c5bd6fc17554a15779d83de
+  requires_dist:
+  - async-timeout>=3.0.0 ; python_full_version < '3.11'
+  - bleak-pythonista>=0.1.1 ; extra == 'pythonista'
+  - dbus-fast>=1.83.0 ; sys_platform == 'linux'
+  - pyobjc-core>=10.3 ; sys_platform == 'darwin'
+  - pyobjc-framework-corebluetooth>=10.3 ; sys_platform == 'darwin'
+  - pyobjc-framework-libdispatch>=10.3 ; sys_platform == 'darwin'
+  - typing-extensions>=4.7.0 ; python_full_version < '3.12'
+  - winrt-windows-devices-bluetooth>=3.1 ; sys_platform == 'win32'
+  - winrt-windows-devices-bluetooth-advertisement>=3.1 ; sys_platform == 'win32'
+  - winrt-windows-devices-bluetooth-genericattributeprofile>=3.1 ; sys_platform == 'win32'
+  - winrt-windows-devices-enumeration>=3.1 ; sys_platform == 'win32'
+  - winrt-windows-devices-radios>=3.1 ; sys_platform == 'win32'
+  - winrt-windows-foundation>=3.1 ; sys_platform == 'win32'
+  - winrt-windows-foundation-collections>=3.1 ; sys_platform == 'win32'
+  - winrt-windows-storage-streams>=3.1 ; sys_platform == 'win32'
+  - winrt-runtime>=3.1 ; sys_platform == 'win32'
+  requires_python: '>=3.10'
 - conda: https://conda.anaconda.org/conda-forge/win-64/bzip2-1.0.8-h0ad9c76_8.conda
   sha256: d882712855624641f48aa9dc3f5feea2ed6b4e6004585d3616386a18186fe692
   md5: 1077e9333c41ff0be8edd1a5ec0ddace
@@ -1711,9 +1744,10 @@ packages:
 - pypi: ./
   name: thermalpaint
   version: 0.1.0
-  sha256: 5a713b8905e0f835af08fb9886032adad53189b66309634f2649d4605dbcd564
+  sha256: 0e5cbc2cbded827d1b33f9c0d24f317f6193d9530058f91b2448285d91e374b7
   requires_dist:
   - dicot>=0.1.0,<0.2
+  - bleak
   requires_python: '>=3.11'
 - conda: https://conda.anaconda.org/conda-forge/win-64/tk-8.6.13-h6ed50ae_3.conda
   sha256: 0e79810fae28f3b69fe7391b0d43f5474d6bd91d451d5f2bde02f55ae481d5e3
@@ -1727,6 +1761,11 @@ packages:
   purls: []
   size: 3526350
   timestamp: 1769460339384
+- pypi: https://files.pythonhosted.org/packages/18/67/36e9267722cc04a6b9f15c7f3441c2363321a3ea07da7ae0c0707beb2a9c/typing_extensions-4.15.0-py3-none-any.whl
+  name: typing-extensions
+  version: 4.15.0
+  sha256: f0fa19c6845758ab08074a0cfa8b7aecb71c999ca73d62883bc25cc018c4e548
+  requires_python: '>=3.9'
 - conda: https://conda.anaconda.org/conda-forge/noarch/tzdata-2025c-hc9c84f9_1.conda
   sha256: 1d30098909076af33a35017eed6f2953af1c769e273a0626a04722ac4acaba3c
   md5: ad659d0a2b3e47e38d829aa8cad2d610
@@ -1791,6 +1830,101 @@ packages:
   purls: []
   size: 19347
   timestamp: 1767320221943
+- pypi: https://files.pythonhosted.org/packages/87/85/e5c2a10d287edd9d3ee8dc24bf7d7f335636b92bf47119768b7dd2fd1669/winrt_runtime-3.2.1-cp314-cp314-win_amd64.whl
+  name: winrt-runtime
+  version: 3.2.1
+  sha256: e36e587ab5fd681ee472cd9a5995743f75107a1a84d749c64f7e490bc86bc814
+  requires_dist:
+  - typing-extensions>=4.12.2
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/61/fa/7460655628d0f340a93524f5236bb9f8514eb0e1d334b38cba8a89f6c1a6/winrt_windows_devices_bluetooth-3.2.1-cp314-cp314-win_amd64.whl
+  name: winrt-windows-devices-bluetooth
+  version: 3.2.1
+  sha256: 3295d932cc93259d5ccb23a41e3a3af4c78ce5d6a6223b2b7638985f604fa34c
+  requires_dist:
+  - winrt-runtime~=3.2.1.0
+  - winrt-windows-devices-bluetooth-genericattributeprofile[all]~=3.2.1.0 ; extra == 'all'
+  - winrt-windows-devices-bluetooth-rfcomm[all]~=3.2.1.0 ; extra == 'all'
+  - winrt-windows-devices-enumeration[all]~=3.2.1.0 ; extra == 'all'
+  - winrt-windows-devices-radios[all]~=3.2.1.0 ; extra == 'all'
+  - winrt-windows-foundation[all]~=3.2.1.0 ; extra == 'all'
+  - winrt-windows-foundation-collections[all]~=3.2.1.0 ; extra == 'all'
+  - winrt-windows-networking[all]~=3.2.1.0 ; extra == 'all'
+  - winrt-windows-storage-streams[all]~=3.2.1.0 ; extra == 'all'
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/07/c7/43601ab82fe42bcff430b8466d84d92b31be06cc45c7fd64e9aac40f7851/winrt_windows_devices_bluetooth_advertisement-3.2.1-cp314-cp314-win_amd64.whl
+  name: winrt-windows-devices-bluetooth-advertisement
+  version: 3.2.1
+  sha256: d102f3fac64fde32332e370969dfbc6f37b405d8cc055d9da30d14d07449a3c2
+  requires_dist:
+  - winrt-runtime~=3.2.1.0
+  - winrt-windows-devices-bluetooth[all]~=3.2.1.0 ; extra == 'all'
+  - winrt-windows-foundation[all]~=3.2.1.0 ; extra == 'all'
+  - winrt-windows-foundation-collections[all]~=3.2.1.0 ; extra == 'all'
+  - winrt-windows-storage-streams[all]~=3.2.1.0 ; extra == 'all'
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/bb/fa/f465d5d44dda166bf7ec64b7a950f57eca61f165bfe18345e9a5ea542def/winrt_windows_devices_bluetooth_genericattributeprofile-3.2.1-cp314-cp314-win_amd64.whl
+  name: winrt-windows-devices-bluetooth-genericattributeprofile
+  version: 3.2.1
+  sha256: 13786a5853a933de140d456cd818696e1121c7c296ae7b7af262fc5d2cffb851
+  requires_dist:
+  - winrt-runtime~=3.2.1.0
+  - winrt-windows-devices-bluetooth[all]~=3.2.1.0 ; extra == 'all'
+  - winrt-windows-devices-enumeration[all]~=3.2.1.0 ; extra == 'all'
+  - winrt-windows-foundation[all]~=3.2.1.0 ; extra == 'all'
+  - winrt-windows-foundation-collections[all]~=3.2.1.0 ; extra == 'all'
+  - winrt-windows-storage-streams[all]~=3.2.1.0 ; extra == 'all'
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/cb/f6/68d91068048410f49794c0b19c45759c63ca559607068cfe5affba2f211b/winrt_windows_devices_enumeration-3.2.1-cp314-cp314-win_amd64.whl
+  name: winrt-windows-devices-enumeration
+  version: 3.2.1
+  sha256: 0da1ddb8285d97a6775c36265d7157acf1bbcb88bcc9a7ce9a4549906c822472
+  requires_dist:
+  - winrt-runtime~=3.2.1.0
+  - winrt-windows-applicationmodel-background[all]~=3.2.1.0 ; extra == 'all'
+  - winrt-windows-foundation[all]~=3.2.1.0 ; extra == 'all'
+  - winrt-windows-foundation-collections[all]~=3.2.1.0 ; extra == 'all'
+  - winrt-windows-security-credentials[all]~=3.2.1.0 ; extra == 'all'
+  - winrt-windows-storage-streams[all]~=3.2.1.0 ; extra == 'all'
+  - winrt-windows-ui[all]~=3.2.1.0 ; extra == 'all'
+  - winrt-windows-ui-popups[all]~=3.2.1.0 ; extra == 'all'
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/a7/7c/c6aea91908ee7279ed51d12157bc8aeecb8850af2441073c3c91b261ad31/winrt_windows_devices_radios-3.2.1-cp314-cp314-win_amd64.whl
+  name: winrt-windows-devices-radios
+  version: 3.2.1
+  sha256: 6a8413e586fe597c6849607885cca7e0549da33ae5699165d11f7911534c6eaf
+  requires_dist:
+  - winrt-runtime~=3.2.1.0
+  - winrt-windows-foundation[all]~=3.2.1.0 ; extra == 'all'
+  - winrt-windows-foundation-collections[all]~=3.2.1.0 ; extra == 'all'
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/a1/56/4d2b545bea0f34f68df6d4d4ca22950ff8a935497811dccdc0ca58737a05/winrt_windows_foundation-3.2.1-cp314-cp314-win_amd64.whl
+  name: winrt-windows-foundation
+  version: 3.2.1
+  sha256: a22a7ebcec0d262e60119cff728f32962a02df60471ded8b2735a655eccc0ef5
+  requires_dist:
+  - winrt-runtime~=3.2.1.0
+  - winrt-windows-foundation-collections[all]~=3.2.1.0 ; extra == 'all'
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/20/59/5f2c940ff606297129e93ebd6030c813e6a43a786de7fc33ccb268e0b06b/winrt_windows_foundation_collections-3.2.1-cp314-cp314-win_amd64.whl
+  name: winrt-windows-foundation-collections
+  version: 3.2.1
+  sha256: d4cfece7e9c0ead2941e55a1da82f20d2b9c8003bb7a8853bb7f999b539f80a4
+  requires_dist:
+  - winrt-runtime~=3.2.1.0
+  - winrt-windows-foundation[all]~=3.2.1.0 ; extra == 'all'
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/f4/3d/aae50b1d0e37b5a61055759aedd42c6c99d7c17ab8c3e568ab33c0288938/winrt_windows_storage_streams-3.2.1-cp314-cp314-win_amd64.whl
+  name: winrt-windows-storage-streams
+  version: 3.2.1
+  sha256: 3c5bf41d725369b9986e6d64bad7079372b95c329897d684f955d7028c7f27a0
+  requires_dist:
+  - winrt-runtime~=3.2.1.0
+  - winrt-windows-foundation[all]~=3.2.1.0 ; extra == 'all'
+  - winrt-windows-foundation-collections[all]~=3.2.1.0 ; extra == 'all'
+  - winrt-windows-storage[all]~=3.2.1.0 ; extra == 'all'
+  - winrt-windows-system[all]~=3.2.1.0 ; extra == 'all'
+  requires_python: '>=3.9'
 - conda: https://conda.anaconda.org/conda-forge/win-64/x264-1!164.3095-h8ffe710_2.tar.bz2
   sha256: 97166b318f8c68ffe4d50b2f4bd36e415219eeaef233e7d41c54244dc6108249
   md5: 19e39905184459760ccb8cf5c75f148b

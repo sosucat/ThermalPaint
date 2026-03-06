@@ -13,7 +13,7 @@ from utils import rgb_to_blind_angle
 def main():
     # 1. Setup Hardware & Config
     params = CalibrationParameters.load_from_csv(PARAMETERS_FILE)
-    sensor = BrushSensor(COM_PORT_BRUSH, BAUD_RATE)
+    sensor = BrushSensor()
     blinds = BlindMotor(COM_PORT_MOTOR)
     
     cap = cv2.VideoCapture(0)
@@ -29,28 +29,26 @@ def main():
     try:
         while True:
             # 2. Read Inputs
-            sensor_vals = sensor.read()
+            angle = sensor.read()
             ret, frame = cap.read()
             
-            if not ret or not sensor_vals:
+            if not ret or angle is None:
                 continue
 
-            r_val, l_val = sensor_vals
-            
             # 3. Determine State & Position
             is_painting = False
             x, y = 0, 0
             
-            # Check Right Swipe
-            if r_val > params.right_init_val + BUFFER_RIGHT:
+            # Check Right Swipe (positive angle)
+            if angle > BUFFER_RIGHT:
                 # print("State: Right")
-                x, y = params.project_coordinates(r_val, True, width, height)
+                x, y = params.project_coordinates(angle, True, width, height)
                 is_painting = True
                 
-            # Check Left Swipe
-            elif l_val > params.left_init_val + BUFFER_LEFT:
+            # Check Left Swipe (negative angle - use absolute value)
+            elif angle < -BUFFER_LEFT:
                 # print("State: Left")
-                x, y = params.project_coordinates(l_val, False, width, height)
+                x, y = params.project_coordinates(abs(angle), False, width, height)
                 is_painting = True
             
             # 4. Process Logic

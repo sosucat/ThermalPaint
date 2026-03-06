@@ -8,7 +8,7 @@ from hardware import BrushSensor
 class CalibrationApp:
     def __init__(self):
         self.params = CalibrationParameters()
-        self.sensor = BrushSensor(COM_PORT_BRUSH, BAUD_RATE)
+        self.sensor = BrushSensor()
         self.cap = cv2.VideoCapture(0)
         self.width = int(self.cap.get(cv2.CAP_PROP_FRAME_WIDTH))
         self.height = int(self.cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
@@ -27,6 +27,8 @@ class CalibrationApp:
         for name, logic, use_sensor in steps:
             print(f"\n--- Calibrating: {name} ---")
             print("Use ARROWS to adjust. ENTER to confirm.")
+            if use_sensor:
+                print("Bend the brush to the right/left position.")
             self._visual_loop(logic, use_sensor)
             time.sleep(0.5)
 
@@ -34,14 +36,14 @@ class CalibrationApp:
         self._cleanup()
 
     def _calibrate_baseline(self):
-        # Countdown
+        # Countdown - hold brush in neutral position
         for i in range(5, 0, -1):
-            print(f"Hold brush still... {i}", end='\r')
+            print(f"Hold brush in neutral position... {i}", end='\r')
             time.sleep(1)
-        r, l = self.sensor.calibrate_baseline()
-        self.params.right_init_val = r
-        self.params.left_init_val = l
-        print(f"\nBaseline Set: R={r}, L={l}")
+        baseline = self.sensor.calibrate_baseline()
+        # Single baseline value (neutral position, typically 0)
+        self.params.baseline_val = baseline
+        print(f"\nBaseline Set: {baseline} (neutral position)")
 
     def _visual_loop(self, logic_func, use_sensor):
         while True:
@@ -51,10 +53,9 @@ class CalibrationApp:
                 'up': keyboard.is_pressed('up'), 'down': keyboard.is_pressed('down')
             }
             
-            sensor_data = self.sensor.read() if use_sensor else (0,0)
-            if use_sensor and not sensor_data: sensor_data = (0,0)
-
-            x, y = logic_func(keys, sensor_data)
+            sensor_angle = self.sensor.read() if use_sensor else None
+            
+            x, y = logic_func(keys, sensor_angle)
             
             # Draw
             ret, frame = self.cap.read()
@@ -90,14 +91,20 @@ class CalibrationApp:
         if k['left']: self.params.right_x_coeff -= 0.1
         if k['up']: self.params.right_y_coeff -= 0.1
         if k['down']: self.params.right_y_coeff += 0.1
-        return self.params.project_coordinates(s[0], True, self.width, self.height)
+        # For right: use positive angle from baseline
+        if s is not None:
+            return self.params.project_coordinates(s, True, self.width, self.height)
+        return self.params.right_init_x, self.params.right_init_y
 
     def _logic_coeff_left(self, k, s):
-        if k['right']: self.params.left_x_coeff -= 0.1
-        if k['left']: self.params.left_x_coeff += 0.1
+        if k['right']: self.params.left_x_coeff += 0.1
+        if k['left']: self.params.left_x_coeff -= 0.1
         if k['up']: self.params.left_y_coeff -= 0.1
         if k['down']: self.params.left_y_coeff += 0.1
-        return self.params.project_coordinates(s[1], False, self.width, self.height)
+        # For left: use absolute value of negative angle
+        if s is not None:
+            return self.params.project_coordinates(abs(s), False, self.width, self.height)
+        return self.params.left_init_x, self.params.left_init_y
 
     def _cleanup(self):
         self.cap.release()

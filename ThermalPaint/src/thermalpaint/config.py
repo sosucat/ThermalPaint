@@ -4,21 +4,22 @@ from pathlib import Path
 from typing import Tuple
 
 # --- Configuration Constants ---
-COM_PORT_BRUSH = 'COM4'   # Arduino Sensor
+COM_PORT_BRUSH = 'COM6'   # Arduino Sensor
 COM_PORT_MOTOR = 'COM11'  # Dicot Motor
 BAUD_RATE = 115200
 
-# Buffer thresholds for detecting brush contact
-BUFFER_RIGHT = 6
-BUFFER_LEFT = 4
+# Buffer thresholds for detecting brush contact (angle thresholds)
+BUFFER_RIGHT = 10  # degrees
+BUFFER_LEFT = 10   # degrees
 
 PARAMETERS_FILE = Path("data/parameters.csv")
 
 @dataclass
 class CalibrationParameters:
     """Stores calibration data and handles coordinate projection logic."""
-    right_init_val: int = 549
-    left_init_val: int = 529
+    # Single baseline value (neutral position angle, typically 0)
+    baseline_val: int = 0
+    # Position and coefficient parameters
     right_init_x: int = 410
     left_init_x: int = 255
     right_init_y: int = 210
@@ -40,9 +41,15 @@ class CalibrationParameters:
                 # Use the last row of data
                 data = rows[-1] 
                 return cls(
-                    int(data[0]), int(data[1]), 
-                    int(data[2]), int(data[3]), int(data[4]), int(data[5]),
-                    float(data[6]), float(data[7]), float(data[8]), float(data[9])
+                    int(data[0]),  # baseline_val
+                    int(data[1]),  # right_init_x
+                    int(data[2]),  # left_init_x
+                    int(data[3]),  # right_init_y
+                    int(data[4]),  # left_init_y
+                    float(data[5]),  # right_x_coeff
+                    float(data[6]),  # right_y_coeff
+                    float(data[7]),  # left_x_coeff
+                    float(data[8])   # left_y_coeff
                 )
         except FileNotFoundError:
             print(f"Warning: {filename} not found. Using defaults.")
@@ -60,16 +67,19 @@ class CalibrationParameters:
             writer.writerow(list(data.values()))
         print(f"Parameters saved to {filename}")
 
-    def project_coordinates(self, sensor_val: int, is_right: bool, max_w: int, max_h: int) -> Tuple[int, int]:
-        """Calculates screen coordinates based on sensor value and calibration."""
+    def project_coordinates(self, angle: int, is_right: bool, max_w: int, max_h: int) -> Tuple[int, int]:
+        """Calculates screen coordinates based on sensor angle and calibration.
+        
+        Args:
+            angle: The bend angle (positive for right, already absolute value for left)
+            is_right: True if bending right, False if bending left
+        """
         if is_right:
-            delta = sensor_val - self.right_init_val
-            x = self.right_init_x + (delta * self.right_x_coeff)
-            y = self.right_init_y + (delta * self.right_y_coeff)
+            x = self.right_init_x + (angle * self.right_x_coeff)
+            y = self.right_init_y + (angle * self.right_y_coeff)
         else:
-            delta = sensor_val - self.left_init_val
-            x = self.left_init_x - (delta * self.left_x_coeff)
-            y = self.left_init_y - (delta * self.left_y_coeff)
+            x = self.left_init_x - (angle * self.left_x_coeff)
+            y = self.left_init_y - (angle * self.left_y_coeff)
         
         # Clamp to screen bounds
         return int(max(0, min(x, max_w - 1))), int(max(0, min(y, max_h - 1)))
