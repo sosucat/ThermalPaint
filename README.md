@@ -1,8 +1,8 @@
 # ThermalPaint
-[![Homepage](https://img.shields.io/badge/🔗_Homepage-black)]()
-[![Author](https://img.shields.io/badge/Author-black?logo=googlescholar&logoColor=white)](https://sosuke-ichihashi.com/)
+[![Homepage](https://img.shields.io/badge/🔗_Project_Page-black)]()
+[![Author](https://img.shields.io/badge/Author_Website-black?logo=googlescholar&logoColor=white)](https://sosuke-ichihashi.com/)
 [![Research paper](https://img.shields.io/badge/Research_Paper-black?logo=acm)](https://doi.org/10.1145/3731459.3779344)
-[![Watch on YouTube](https://img.shields.io/badge/Fabrication-750014?logo=youtube)]()
+[![Watch on YouTube](https://img.shields.io/badge/Watch_on_YouTube-750014?logo=youtube)]()
 
 In Thermal Painting, the artist feels physical warmth according to the color they are painting.
 ThermalPaint detects the color painted with the ThermalPaint brush (a brush with a bend sensor and a webcam) and controls heat output on the painter.
@@ -33,9 +33,10 @@ series = {TEI '26}
 
 ### Stroke & Color Detection
 Brush stroke, stroke and color detections are done with a bend sensor and a webcam.
-The bend sensor data is communicated from the Xiao nrf52840 Sense board via BLE.
+The bend sensor data is communicated from the [Xiao nrf52840 Sense board](https://wiki.seeedstudio.com/XIAO_BLE/#getting-started) via BLE.
 Alternatively, you can use an Arduino board and communicate the sensor data via wired serial communication.
 Both Xiao and Arduino sketch files can be found in ThermalPaint/bendsensing.
+For the hardware configuration, please refer to [our paper](https://doi.org/10.1145/3731459.3779344) as well as the hardware Readme doc.
 
 ### Thermal Feedback using ThermoBlinds
 Heat is dynamically provided with the thermal feedback device we developed. For more details about the heating mechanism, please refer to the following publications:
