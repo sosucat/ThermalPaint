@@ -25,3 +25,4 @@ The attachment 3D model we provided is for [Logitech C270](https://a.co/d/01MAVr
 If your PC is connected to multiple cameras including the built-in one, you need to update the index in the code so the opencv can access the camera mounted on the brush.
 
 ## Wiring
+![Wiring diagram. Xiao's 3V3 connects to the sensor's VCC. GND, SDA, SCL connect to the corresponding GND. SDA and SCL pins of the bend sensor. The SDA, SCL, nRST pins are pulled-up with resistors. The NDRDY is floated.](assets/Xiao-BendLabs.png)
