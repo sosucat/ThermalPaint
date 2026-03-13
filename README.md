@@ -101,8 +101,13 @@ ThermalPaint/ThermalPaint/
       ```
       pixi run python src/thermalpaint/calibration.py
       ```
-15. Run the main program.
+      If a wrong webcam is detected, update the camera ID in the following lines:
+      ```py
+      #Calibration.py L12 & __init__.py L19
+      self.cap = cv2.VideoCapture(0)
+      ```
+16. Run the main program.
       ```
       pixi run python src/thermalpaint/__init__.py
       ```
-16. Paint!
+17. Paint!
