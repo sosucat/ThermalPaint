@@ -24,4 +24,4 @@ You can use pretty much any webcam.
 The attachment 3D model we provided is for [Logitech C270](https://a.co/d/01MAVrKs).
 If your PC is connected to multiple cameras including the built-in one, you need to update the index in the code so the opencv can access the camera mounted on the brush.
 
-## Wireing
+## Wiring
