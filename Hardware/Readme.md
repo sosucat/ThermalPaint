@@ -33,14 +33,3 @@ Please refer to the Readme in the root directory for more details.
 ## Wiring
 <img src="assets/Xiao-BendLabs.png" width="300px" max-width="100%" alt="Wiring diagram. Xiao's 3V3 connects to the sensor's VCC. GND, SDA, SCL connect to the corresponding GND. SDA and SCL pins of the bend sensor. The SDA, SCL, nRST pins are pulled-up with resistors. The NDRDY is floated." /><br>
 This is the example for the Xiao board. If you use Arduino, please refer to [the documentation](https://docs.arduino.cc/learn/communication/wire/). Since the sensor's logic level is 3.3V, you might need to use a logic level shifter if you use a 5V board like Uno.
-
-
-### Stroke & Color Detection
-Brush stroke, stroke and color detections are done with a bend sensor and a webcam.
-The bend sensor data is communicated from the [Xiao nrf52840 Sense board](https://wiki.seeedstudio.com/XIAO_BLE/#getting-started) via BLE.
-Alternatively, you can use an Arduino board and communicate the sensor data via wired serial communication.
-Both Xiao and Arduino sketch files can be found in ThermalPaint/bendsensing.
-For the hardware configuration, please refer to [our paper](https://doi.org/10.1145/3731459.3779344) as well as the hardware Readme doc.
-
-### Thermal Feedback using ThermoBlinds
-Heat is dynamically provided with the thermal feedback device we developed. For more details about the heating mechanism, please refer to the following publications:
