@@ -8,6 +8,10 @@ The brush can be anything as long as you can fix a bend sensor and a webcam to i
 In our example, we used a [2.5" brush](https://a.co/d/09egNIkl). Our 3D models of the sensor&camera mounts are for this specific brush, so please get this if you want to use our attachments.
 If you are comfortable with CAD or are ok with fixing the components using more manual ways (e.g., hot glue), please feel free to pick whatever brush you want.
 
+## Sensor & Camera Mounts
+The 3D models for the sensor and camera mounts are available in 3D model.
+Alternatively, you could simply hot glue everyting to your brush and use a chopstick or something as the camera mount.
+
 ## Microcontroller
 We have tried two microcontroller options: Arduino (wired) and [Xiao nrf52840](https://wiki.seeedstudio.com/XIAO_BLE/) (BLE).
 The wired connection gives you more seamless integration of the color and heat thanks to its smaller latency.
