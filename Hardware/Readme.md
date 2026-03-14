@@ -31,5 +31,5 @@ If your PC is connected to multiple cameras including the built-in one, you need
 Please refer to the Readme in the root directory for more details.
 
 ## Wiring
-<img src="assets/Xiao-BendLabs.png" width="400px" max-width="100%" alt="Wiring diagram. Xiao's 3V3 connects to the sensor's VCC. GND, SDA, SCL connect to the corresponding GND. SDA and SCL pins of the bend sensor. The SDA, SCL, nRST pins are pulled-up with resistors. The NDRDY is floated." /><br>
+<img src="assets/Xiao-BendLabs.png" width="300px" max-width="100%" alt="Wiring diagram. Xiao's 3V3 connects to the sensor's VCC. GND, SDA, SCL connect to the corresponding GND. SDA and SCL pins of the bend sensor. The SDA, SCL, nRST pins are pulled-up with resistors. The NDRDY is floated." /><br>
 This is the example for the Xiao board. If you use Arduino, please refer to [the documentation](https://docs.arduino.cc/learn/communication/wire/). Since the sensor's logic level is 3.3V, you might need to use a logic level shifter if you use a 5V board like Uno.
