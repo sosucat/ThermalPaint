@@ -31,17 +31,10 @@ series = {TEI '26}
 }
 ```
 
-### Stroke & Color Detection
-Brush stroke, stroke and color detections are done with a bend sensor and a webcam.
-The bend sensor data is communicated from the [Xiao nrf52840 Sense board](https://wiki.seeedstudio.com/XIAO_BLE/#getting-started) via BLE.
-Alternatively, you can use an Arduino board and communicate the sensor data via wired serial communication.
-Both Xiao and Arduino sketch files can be found in ThermalPaint/bendsensing.
-For the hardware configuration, please refer to [our paper](https://doi.org/10.1145/3731459.3779344) as well as the hardware Readme doc.
+## Hardware
+The system consists of the ThermalPaint Brush, which detects colors when painted, a PC to run the program, and the ThermoBlinds heater.
+Please refer to the [Hardware page](./Hardware) for more details.
 
-### Thermal Feedback using ThermoBlinds
-Heat is dynamically provided with the thermal feedback device we developed. For more details about the heating mechanism, please refer to the following publications:
-- Sosuke Ichihashi, Arata Horie, Masaharu Hirose, Zendai Kashino, Shigeo Yoshida, and Masahiko Inami. 2021. High-Speed Non-Contact Thermal Display Using Infrared Rays and Shutter Mechanism. In Adjunct Proceedings of the 2021 ACM International Joint Conference on Pervasive and Ubiquitous Computing and Proceedings of the 2021 ACM International Symposium on Wearable Computers (UbiComp '21). Association for Computing Machinery, New York, NY, USA, 565–569. [https://doi.org/10.1145/3460418.3480160](https://doi.org/10.1145/3460418.3480160)
-- Sosuke Ichihashi, Arata Horie, Masaharu Hirose, Zendai Kashino, Shigeo Yoshida, Sohei Wakisaka, and Masahiko Inami. 2022. ThermoBlinds: Non-Contact, Highly Responsive Thermal Feedback for Thermal Interaction. In ACM SIGGRAPH 2022 Emerging Technologies (SIGGRAPH '22). Association for Computing Machinery, New York, NY, USA, Article 10, 1–2. [https://doi.org/10.1145/3532721.3535569](https://doi.org/10.1145/3532721.3535569)
 
 ## Directory structure
 ```r
