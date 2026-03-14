@@ -1,5 +1,5 @@
 # Thermal Brush Hardware
-<img src="assets/Brush.svg" max-width="600px" alt="Photo of the Thermal Brush, consisting of a switch, lipo battery, microcontroller, circuit board with pull-up resistors, and a bend sensor. They are all mounted near the ferrule on the brush using a 3D-printed part." />
+<img src="assets/Brush.svg" width="600px" max-width="100%" alt="Photo of the Thermal Brush, consisting of a switch, lipo battery, microcontroller, circuit board with pull-up resistors, and a bend sensor. They are all mounted near the ferrule on the brush using a 3D-printed part." />
 Here, we describe the hardware configuration of Thermal Brush, a brush that detects its stroke direction and the color being painted in real-time.
 For the heater hardware configuration, please refer to our papers (1, 2) as well as [the author's website](https://sosuke-ichihashi.com/thermoblinds/).
 
