@@ -8,28 +8,6 @@ In Thermal Painting, artists feel physical warmth according to the color they ar
 Our system detects the color painted with the ThermalPaint brush (a brush with a bend sensor and a webcam) and controls heat output on the painter.
 For more details and the user study results, please refer to our [paper](https://doi.org/10.1145/3731459.3779344) and [video](https://youtu.be/mg1KRw85CI4).
 
-## Publication
-Supratim Pait, Sosuke Ichihashi, Xingyu Li, Haiqing Xu, and Noura Howell. 2026. Designing for Defamiliarization with Thermal Painting: Exploring Experiences of Dynamic Warmth in Painters' Creative Processes. In Proceedings of the Twentieth International Conference on Tangible, Embedded, and Embodied Interaction (TEI '26). Association for Computing Machinery, New York, NY, USA, Article 84, 1–11. [https://doi.org/10.1145/3731459.3779344](https://doi.org/10.1145/3731459.3779344)
-```bibtex
-@inproceedings{10.1145/3731459.3779344,
-author = {Pait, Supratim and Ichihashi, Sosuke and Li, Xingyu and Xu, Haiqing and Howell, Noura},
-title = {Designing for Defamiliarization with Thermal Painting: Exploring Experiences of Dynamic Warmth in Painters' Creative Processes},
-year = {2026},
-isbn = {9798400718687},
-publisher = {Association for Computing Machinery},
-address = {New York, NY, USA},
-url = {https://doi.org/10.1145/3731459.3779344},
-doi = {10.1145/3731459.3779344},
-abstract = {Thermal Painting is a probe to explore multisensory painting, aiming to defamiliarize, or present the familiar creative practice of painting in an unfamiliar way for artists. The system provides dynamic thermal feedback based on what color the artist is painting. In a qualitative, exploratory pilot study with 20 artists, we investigated how thermal sensations influenced their creative process. Artists described how thermal feedback impacted color selection, brush movements, comfort and flow, thematic associations, and memory triggers. This prompts plans for future work around design improvements, an in-situ field study, thermal associations, and multisensory defamiliarization. This project offers preliminary insights into the interplay of thermal sensation and creative process.},
-booktitle = {Proceedings of the Twentieth International Conference on Tangible, Embedded, and Embodied Interaction},
-articleno = {84},
-numpages = {11},
-keywords = {Painting, Creativity, Thermal Feedback},
-location = {
-},
-series = {TEI '26}
-}
-```
 
 ## Hardware
 The system consists of the ThermalPaint Brush, which detects colors when painted, a PC to run the program, and the ThermoBlinds heater.
@@ -76,8 +54,7 @@ ThermalPaint/ThermalPaint/
    To control the RS204MD servo motors from your PC, you need to install the software containing the driver (the website is in Japanese, and google translate sometimes does not work well, so please download [this html file](https://drive.google.com/file/d/1qztwM8tqKWbrD8Aod6qqK9VrmVXrDmzK/view?usp=drive_link), open it with your browser, and follow the instructions.)
 7. Connect ThermoBlinds and ThermalPaint brush to your PC and a wall power.
 8. Check the COM port for the servo motor driver on RS30xPacketUtil.
-9. Update the port numbers in `src/thermalpaint/config.py`. If you use wired Arduino for bend detection, update its port number as well.
-      ```py
+9. Update the port number in `src/thermalpaint/config.py`.
       # --- Configuration Constants ---
       COM_PORT_MOTOR = 'COM11'  # Dicot Motor
       ```
@@ -90,7 +67,8 @@ ThermalPaint/ThermalPaint/
       ```py
       with open(filename, 'w') as csvfile:
       ```
-14. Run the calibration program.
+11. Upload [the Bend_BLE sketch](./Bend_BLE) to your Xiao nrf52840 microcontroller.
+12. Run the calibration program.
       ```
       pixi run python src/thermalpaint/calibration.py
       ```
@@ -99,8 +77,32 @@ ThermalPaint/ThermalPaint/
       #Calibration.py L12 & __init__.py L19
       self.cap = cv2.VideoCapture(0)
       ```
-16. Run the main program.
+13. Run the main program.
       ```
       pixi run python src/thermalpaint/__init__.py
       ```
-17. Paint!
+14. Paint!
+
+
+## Publication
+Supratim Pait, Sosuke Ichihashi, Xingyu Li, Haiqing Xu, and Noura Howell. 2026. Designing for Defamiliarization with Thermal Painting: Exploring Experiences of Dynamic Warmth in Painters' Creative Processes. In Proceedings of the Twentieth International Conference on Tangible, Embedded, and Embodied Interaction (TEI '26). Association for Computing Machinery, New York, NY, USA, Article 84, 1–11. [https://doi.org/10.1145/3731459.3779344](https://doi.org/10.1145/3731459.3779344)
+```bibtex
+@inproceedings{10.1145/3731459.3779344,
+author = {Pait, Supratim and Ichihashi, Sosuke and Li, Xingyu and Xu, Haiqing and Howell, Noura},
+title = {Designing for Defamiliarization with Thermal Painting: Exploring Experiences of Dynamic Warmth in Painters' Creative Processes},
+year = {2026},
+isbn = {9798400718687},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3731459.3779344},
+doi = {10.1145/3731459.3779344},
+abstract = {Thermal Painting is a probe to explore multisensory painting, aiming to defamiliarize, or present the familiar creative practice of painting in an unfamiliar way for artists. The system provides dynamic thermal feedback based on what color the artist is painting. In a qualitative, exploratory pilot study with 20 artists, we investigated how thermal sensations influenced their creative process. Artists described how thermal feedback impacted color selection, brush movements, comfort and flow, thematic associations, and memory triggers. This prompts plans for future work around design improvements, an in-situ field study, thermal associations, and multisensory defamiliarization. This project offers preliminary insights into the interplay of thermal sensation and creative process.},
+booktitle = {Proceedings of the Twentieth International Conference on Tangible, Embedded, and Embodied Interaction},
+articleno = {84},
+numpages = {11},
+keywords = {Painting, Creativity, Thermal Feedback},
+location = {
+},
+series = {TEI '26}
+}
+```
