@@ -1,4 +1,4 @@
-# Thermal Painting - Artists feel actual temperature based on the color they are painting
+# Thermal Painting
 [![Homepage](https://img.shields.io/badge/🔗_Project_Page-black)]()
 [![Author](https://img.shields.io/badge/Author_Website-black?logo=googlescholar&logoColor=white)](https://sosuke-ichihashi.com/)
 [![Research paper](https://img.shields.io/badge/Research_Paper-black?logo=acm)](https://doi.org/10.1145/3731459.3779344)
