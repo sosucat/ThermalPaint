@@ -4,7 +4,7 @@
 [![Research paper](https://img.shields.io/badge/Research_Paper-black?logo=acm)](https://doi.org/10.1145/3731459.3779344)
 [![Watch on YouTube](https://img.shields.io/badge/Watch_on_YouTube-750014?logo=youtube)]()
 
-In Thermal Painting, the artist feels physical warmth according to the color they are painting.
+In Thermal Painting, artists feel physical warmth according to the color they are painting.
 Our system detects the color painted with the ThermalPaint brush (a brush with a bend sensor and a webcam) and controls heat output on the painter.
 For more details and the user study results, please refer to our [paper](https://doi.org/10.1145/3731459.3779344) and [video](https://youtu.be/mg1KRw85CI4).
 
