@@ -6,7 +6,7 @@ import dicot  # Assuming this library is installed
 from typing import Tuple, Optional
 
 # Bluetooth device name and characteristic UUID
-DEVICE_NAME = "XIAO_Flex"
+DEVICE_NAME = "Bend_BLE"
 CHARACTERISTIC_UUID = "000019b2-0000-1000-8000-00805f9b34fb"
 
 class BrushSensor:

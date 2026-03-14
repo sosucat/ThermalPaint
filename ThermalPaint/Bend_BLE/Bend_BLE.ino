@@ -26,7 +26,7 @@ void setup() {
   
   // Start the Bluefruit BLE stack
   Bluefruit.begin();
-  Bluefruit.setName("XIAO_Flex"); // Device name seen on your phone
+  Bluefruit.setName("Bend_BLE"); // Device name seen on your phone
 
   // Set up the Service
   flexService.begin();
@@ -70,7 +70,7 @@ void loop() {
       flexChar.notify(angleStr.c_str(), angleStr.length());
       
       // Small delay to prevent network congestion
-      delay(50); 
+      delay(40); 
     }
   }
 }

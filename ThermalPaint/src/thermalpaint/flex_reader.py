@@ -2,7 +2,7 @@ import asyncio
 from bleak import BleakScanner, BleakClient
 
 # The device name we set in the Arduino code
-DEVICE_NAME = "XIAO_Flex"
+DEVICE_NAME = "Bend_BLE"
 
 # The 16-bit UUID (0x19B2) expanded to the standard 128-bit format
 CHARACTERISTIC_UUID = "000019b2-0000-1000-8000-00805f9b34fb"
