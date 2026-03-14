@@ -55,7 +55,8 @@ ThermalPaint/ThermalPaint/
 7. Connect ThermoBlinds and ThermalPaint brush to your PC and a wall power.
 8. Check the COM port for the servo motor driver on RS30xPacketUtil.
 9. Update the port number in `src/thermalpaint/config.py`.
-      # --- Configuration Constants ---
+      ```
+      --- Configuration Constants ---
       COM_PORT_MOTOR = 'COM11'  # Dicot Motor
       ```
 10. (For MAC users) Update the following line in `src/thermalpaint/config.py`.
@@ -67,7 +68,7 @@ ThermalPaint/ThermalPaint/
       ```py
       with open(filename, 'w') as csvfile:
       ```
-11. Upload [the Bend_BLE sketch](./Bend_BLE) to your Xiao nrf52840 microcontroller.
+11. Upload the [Bend_BLE](./ThermalPaint/Bend_BLE) sketch to your Xiao nrf52840 microcontroller.
 12. Run the calibration program.
       ```
       pixi run python src/thermalpaint/calibration.py
