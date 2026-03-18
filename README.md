@@ -1,13 +1,14 @@
 # Thermal Painting
-[![Homepage](https://img.shields.io/badge/🔗_Project_Page-black)]()
+[![Homepage](https://img.shields.io/badge/🔗_Project_Page-black)](https://sites.gatech.edu/futurefeelings/2026/03/14/thermal-painting-tei-26-wip/)
 [![Author](https://img.shields.io/badge/Author_Website-black?logo=googlescholar&logoColor=white)](https://sosuke-ichihashi.com/)
 [![Research paper](https://img.shields.io/badge/Research_Paper-black?logo=acm)](https://doi.org/10.1145/3731459.3779344)
-[![Watch on YouTube](https://img.shields.io/badge/Watch_on_YouTube-750014?logo=youtube)]()
+[![Watch on YouTube](https://img.shields.io/badge/Watch_on_YouTube-750014?logo=youtube)](https://youtu.be/rIGO8lKhb8M)
 
 In Thermal Painting, artists feel physical warmth according to the color they are painting.
 Our system detects the color painted with the ThermalPaint brush (a brush with a bend sensor and a webcam) and controls heat output on the painter.
 For more details and the user study results, please refer to our [paper](https://doi.org/10.1145/3731459.3779344) and [video](https://youtu.be/mg1KRw85CI4).
 
+[![Watch the video](https://img.youtube.com/vi/rIGO8lKhb8M/maxresdefault.jpg)](https://youtu.be/rIGO8lKhb8M)
 
 ## Hardware
 The system consists of the ThermalPaint Brush, which detects colors when painted, a PC to run the program, and the ThermoBlinds heater.
