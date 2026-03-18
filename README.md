@@ -8,9 +8,11 @@ In Thermal Painting, artists feel physical warmth according to the color they ar
 Our system detects the color painted with the ThermalPaint brush (a brush with a bend sensor and a webcam) and controls heat output on the painter.
 For more details and the user study results, please refer to our [paper](https://doi.org/10.1145/3731459.3779344) and [video](https://youtu.be/mg1KRw85CI4).
 
-<a href="https://youtu.be/rIGO8lKhb8M" target="_blank">
-  <img src="https://github.com/sosucat/ThermalPaint/blob/main/Hardware/assets/ThermalPainting_YouTubeThumbnail.png" alt="Watch the video">
+<p align="center">
+<a href="https://youtu.be/rIGO8lKhb8M">
+<img src="https://github.com/sosucat/ThermalPaint/blob/main/Hardware/assets/ThermalPainting_YouTubeThumbnail.png" alt="Watch the video"  width="600">
 </a>
+</p>
 
 ## Hardware
 The system consists of the ThermalPaint Brush, which detects colors when painted, a PC to run the program, and the ThermoBlinds heater.
