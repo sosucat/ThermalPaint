@@ -16,7 +16,7 @@ Alternatively, you could simply hot glue everyting to your brush and use a chops
 We have tried two microcontroller options: Arduino (wired) and [Xiao nrf52840](https://wiki.seeedstudio.com/XIAO_BLE/) (BLE).<br>
 The wired connection gives you more seamless integration of the color and heat thanks to its smaller latency.<br>
 The BLE gives you more comfortable painting experience by eliminating sensor lines between the brush and PC.<br>
-The software on this repo is the one for BLE. If you want to use a wired connection, please contact pengu1n.i843@gmail or make a new issue on this repo.
+The software on this repo is for the BLE version. If you want to use a wired connection, please contact pengu1n.i843@gmail or make a new issue on this repo. [Bend_Wired](https://github.com/sosucat/ThermalPaint/tree/main/ThermalPaint/Bend_wired) is an example sketch for a wired Arduino with two bend sensors. You also need to modify the main program to use the wired connection.
 
 ## Bend Sensor
 We have tried two bend sensor options: [typical resistance-based bend sensor](https://www.adafruit.com/product/182) and [Bend Labs waterproof bend sensor](https://www.digikey.com/short/fcwhv7dz).

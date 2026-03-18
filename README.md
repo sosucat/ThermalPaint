@@ -8,7 +8,7 @@ In Thermal Painting, artists feel physical warmth according to the color they ar
 Our system detects the color painted with the ThermalPaint brush (a brush with a bend sensor and a webcam) and controls heat output on the painter.
 For more details and the user study results, please refer to our [paper](https://doi.org/10.1145/3731459.3779344) and [video](https://youtu.be/mg1KRw85CI4).
 
-[![Watch the video](https://img.youtube.com/vi/rIGO8lKhb8M/maxresdefault.jpg)](https://youtu.be/rIGO8lKhb8M)
+[![Watch the video](./hardware/assets/ThermalPainting_YouTubeThumbnail.png)](https://youtu.be/rIGO8lKhb8M)
 
 ## Hardware
 The system consists of the ThermalPaint Brush, which detects colors when painted, a PC to run the program, and the ThermoBlinds heater.
@@ -29,8 +29,10 @@ ThermalPaint/ThermalPaint/
 │   └── utils.py           # Utility helper (color to heat conversion)
 ├── data/
 │   └── config.csv         # Config data
-├── dual_bend_sensors_serial_send
-│   └── dual_bend_sensors_serial_send.ino # Arduino code
+├── Bend_BLE
+│   └── Bend_BLE.ino       # Microcontroller code (Xiao nrf52840)
+├── Bend_Wired
+│   └── Bend_Wired.ino     # Microcontroller code (Arduino Uno)
 ├── pixi.toml              # Project manifest (dependencies)
 └── ...
 ```
